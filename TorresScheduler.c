@@ -74,13 +74,13 @@ void add_class(){
 	char name[1024];
 
 	//User input
-	printf("What is the subject (SER=0, EGR=1, CSE=2, EEE=3)?\n");
+	printf("\nWhat is the subject (SER=0, EGR=1, CSE=2, EEE=3)?\n");
 	scanf(" %d", &subject);
-	printf("What is the number (e.g. 240)?\n");
+	printf("\nWhat is the number (e.g. 240)?\n");
 	scanf(" %d", &number);
-	printf("How many credits is the class (e.g. 3)?\n");
+	printf("\nHow many credits is the class (e.g. 3)?\n");
 	scanf(" %d", &credits);
-	printf("What is the name of the teacher?\n");
+	printf("\nWhat is the name of the teacher?\n");
 	scanf(" %s", &name);
 
 	//Add new course to the array
@@ -96,11 +96,9 @@ void add_class(){
 
 void drop_class(){
 	//Variable declaration
-	int subject, number, i, j=0;
+	int number, found = 0, i, j=0;
 
 	//User input
-	printf("What is the subject to drop (SER=0, EGR=1, CSE=2, EEE=3)?\n");
-	scanf(" %d", &subject);
 	printf("What is the number of the class(e.g. 240)?\n");
 	scanf(" %d", &number);
 
@@ -111,8 +109,9 @@ void drop_class(){
 	for(i = 0; i < courseCount; i++){
 
 		//If there is a course that needs to be removed then skip the copy
-		if(CourseCollection[i].subject == subject && CourseCollection[i].number == number){
+		if(CourseCollection[i].number == number && found == 0){
 			creditHours -= CourseCollection[i].creditHours;
+			found = 1;
 			continue;
 		}
 
@@ -134,9 +133,9 @@ void drop_class(){
 void schedule_print(){
 
 	int i;
-	printf("\n------------------------------------------------------\n");
-	printf("Class Schedule:\n");
-	for(i = 0; i < courseCount; i++){
+	printf("\nClass Schedule:\n");
+	printf("------------------------------------------------------\n");
+		for(i = 0; i < courseCount; i++){
 		switch (CourseCollection[i].subject) {
 			case 0:
 				printf("SER");
@@ -159,8 +158,6 @@ void schedule_print(){
 		printf("%d ", CourseCollection[i].creditHours);
 		printf("%s \n", CourseCollection[i].teacher);
 	}
-	printf("------------------------------------------------------\n");
-
 }
 
 //takes a character representing an inputs menu choice and calls the appropriate
@@ -189,4 +186,3 @@ void branching(char option) {
 		break;
 	}
 }
-
